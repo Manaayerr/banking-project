@@ -45,4 +45,32 @@ class Bank:
             new_id = str(int(max(self.customers.keys())) + 1) 
         else:
             new_id = "10001"
+            
+    if account_type == "1":
+        check = 0.0
+        save = 0.0 
+    elif account_type == "2":
+        check = 0.0
+        save = 0.0 
+    else:
+        check = 0.0
+        save = 0.0 
+    
+    new_customer = Customer(
+        account_id=new_id,
+        Fname=fname,
+        Lname=lname,
+        password=password,
+        check=check,
+        save=save
+    )
+    
+new_customer = self.customers[new_id]
+
+with open(self.csv_file, "a", newline='') as file:
+    writer= csv.writer(file)
+    writer.writerow([new_id, fname, lname, password, check, save]) 
+
+print(f"customer added successfully with ID: {new_id}")       
+        
     
