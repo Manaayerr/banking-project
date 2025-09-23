@@ -31,5 +31,18 @@ class Bank:
         print("Customers \n")
         for c in self.customers.values():
             print(c)
-    
+            
+            
+    def add_customer(self):
+        fname = input("Enter First Name: ")
+        lname = input("Enter Last Name: ")
+        password = input("Enter Password: ")
+        
+        print("Choose account type: 1- checking\n 2- saving\n 3- Both")
+        account_type = input("Enter Choice 1/2/3:")
+        
+        if self.customers:
+            new_id = str(int(max(self.customers.keys())) + 1) 
+        else:
+            new_id = "10001"
     
