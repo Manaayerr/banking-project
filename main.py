@@ -22,3 +22,6 @@ except FileNotFoundError:
     
 bank = Bank()
 bank.display_customers()
+
+bank.add_customer()
+bank.display_customers()
