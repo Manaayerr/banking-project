@@ -11,5 +11,25 @@ class TestBank(unittest.TestCase):
         self.assertIn('10001', self.bank.customers)
         self.assertIsInstance(self.bank.customers['10001'], Customer)
         
+    def test_add_customer(self):
+        init_count = len(self.bank.customers)
+        
+        new_customer = Customer(
+            account_id= "10006",
+            Fname="Rawan",
+            Lname="Magrabi",
+            password="Ms1234",
+            check=0,
+            save=0
+            )
+        self.bank.customers[new_customer.account_id] = new_customer
+        self.assertEqual(len(self.bank.customers), init_count +1)
+        
+        self.assertIn("10006", self.bank.customers)
+        self.assertEqual(self.bank.customers["10006"].Fname,"Rawan")
+        self.assertEqual(self.bank.customers["10006"].Lname, "Magrabi")
+        
+        
+        
 if __name__ == "__main__":
     unittest.main()
