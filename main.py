@@ -1,5 +1,6 @@
 import csv 
 from banking.customer import Customer
+from banking.bank import Bank
 
 csv_file = "banking/bank.csv"
 
@@ -18,3 +19,6 @@ try:
         print(customer)
 except FileNotFoundError:
     print('File not found!')
+    
+bank = Bank()
+bank.display_customers()
