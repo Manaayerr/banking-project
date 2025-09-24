@@ -74,4 +74,9 @@ class Bank:
 
         print(f"customer added successfully with ID: {new_id}")       
         
-    
+    def login(self,account_id,password):
+        if account_id in self.customers:
+            customer = self.customers[account_id]
+            if customer.password == password:
+                return customer
+        return None
