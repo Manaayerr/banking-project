@@ -132,3 +132,43 @@ class Transaction:
         
         self.bank.update_csv(self.customer)
         
+    def transfer(self, from_account, to_account, amount, target_customer=None):
+        amount = float(amount)
+        
+        if from_account =="checking":
+            if self.customer.check < amount:
+                print("Shortage of money")
+                return
+            self.customer.check -= amount
+        elif from_account == "savings":
+            if self.customer.save < amount:
+                print("Shortage of money")
+                return
+            self.customer.save -= amount
+        else:
+            print("Invaild account")
+            return
+        
+        if target_customer is None:
+            if to_account == "checking":
+                self.customer.check += amount
+            elif to_account == "savings":
+                self.customer.save += amount
+            else: 
+                print("Invaild target account")
+                return
+        else:
+            if to_account == "checking":
+                target_customer.check += amount
+            elif to_account == "savings":
+                target_customer.save += amount
+            else:
+                print("Invaild target account")
+        self.bank.upadate_csv(self.customer)
+        if target_customer:
+            self.bank.update_csv(target_customer)
+        print(f"Transfer successful! New Banlances: checking:{self.customer.check}, savings: {self.customer.save}")
+        
+            
+                
+        
