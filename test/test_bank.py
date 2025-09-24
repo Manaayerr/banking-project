@@ -45,5 +45,23 @@ class TestBank(unittest.TestCase):
         customer.check += 100
         self.assertEqual(customer.check, initial_balance + 100)
         
+    def test_deposit_savings(self):
+        customer = self.bank.login("10003", "uYWE732g4ga1")
+        initial_balance = customer.save
+        customer.save += 200
+        self.assertEqual(customer.save, initial_balance + 200)
+        
+    def test_withdraw_checking(self):
+        customer = self.bank.login("10003", "uYWE732g4ga1")
+        initial_balance = customer.check
+        customer.check -= 50
+        self.assertEqual(customer.check, initial_balance - 50)
+        
+    def test_withdraw_savings(self):
+        customer = self.bank.login("10003", "uYWE732g4ga1")
+        initial_balance = customer.save
+        customer.save -= 100
+        self.assertEqual(customer.save, initial_balance - 100)
+        
 if __name__ == "__main__":
     unittest.main()
