@@ -13,9 +13,10 @@ class TestBank(unittest.TestCase):
         
     def test_add_customer(self):
         init_count = len(self.bank.customers)
+        new_id = str(int(max(self.bank.customers.keys())) + 1)
         
         new_customer = Customer(
-            account_id= "10006",
+            account_id=new_id,
             Fname="Rawan",
             Lname="Magrabi",
             password="Ms1234",
@@ -26,8 +27,8 @@ class TestBank(unittest.TestCase):
         self.assertEqual(len(self.bank.customers), init_count +1)
         
         self.assertIn("10006", self.bank.customers)
-        self.assertEqual(self.bank.customers["10006"].Fname,"Rawan")
-        self.assertEqual(self.bank.customers["10006"].Lname, "Magrabi")
+        self.assertEqual(self.bank.customers[new_id].Fname,"Rawan")
+        self.assertEqual(self.bank.customers[new_id].Lname, "Magrabi")
     
     def test_login_done(self):
         customer = self.bank.login("10003", "uYWE732g4ga1")
@@ -37,6 +38,12 @@ class TestBank(unittest.TestCase):
     def test_login_fail(self):
         customer = self.bank.login("10001", "asbcdefg")
         self.assertIsNone(customer)
+        
+    def test_deposit_checking(self):
+        customer = self.bank.login("10003", "uYWE732g4ga1")
+        initial_balance = customer.check
+        customer.check += 100
+        self.assertEqual(customer.check, initial_balance + 100)
         
 if __name__ == "__main__":
     unittest.main()
