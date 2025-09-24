@@ -80,3 +80,22 @@ class Bank:
             if customer.password == password:
                 return customer
         return None
+    
+    def update_csv(self,customer):
+        try:
+            with open(self.csv_file, "w" , newline='') as file:
+                filenames= ['account_id', 'frst_name', 'last_name', 'balance_checking', 'balance_savings' ]
+                writer = csv.DictWriter(file, filenames=filenames)
+                writer.writeheader()
+                for c in self.customers.values():
+                    writer.writerow({
+                        'account_id': c.account_id,
+                        "frst_name": c.Fname,
+                        'last_name': c.Lname,
+                        'password': c.password,
+                        'balance_checking': c.check,
+                        'balance_savings': c.save
+                    })
+        except Exception as err:
+            print(f"Error updating csv: {err}")
+        
