@@ -34,5 +34,9 @@ class TestBank(unittest.TestCase):
         self.assertIsNotNone(customer)
         self.assertEqual(customer.Fname, "melvin")
         
+    def test_login_fail(self):
+        customer = self.bank.login("10001", "asbcdefg")
+        self.assertIsNone(customer)
+        
 if __name__ == "__main__":
     unittest.main()
