@@ -3,47 +3,36 @@ from banking.customer import Customer
 from banking.bank import Bank
 from banking.bank import Transaction
 
-csv_file = "banking/bank.csv"
-
-try:
-    with open(csv_file, newline='') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            customer=Customer(
-            account_id=row["account_id"],
-            Fname=row['frst_name'],
-            Lname=row['last_name'],
-            password=row['password'],
-            check=row['balance_checking'],
-            save=row['balance_savings']
-            )
-        print(customer)
-except FileNotFoundError:
-    print('File not found!')
-
-    
 bank = Bank()
 bank.display_customers() 
 
 print("Login\n")
-account_id = input("Enter Account ID: ")
-password = input("Enter Password: ")
+account_id = input("Enter Account ID: ").strip()
+password = input("Enter Password: ").strip()
 
 customer= bank.login(account_id, password)
 
 if customer:
     print(f"Welcome, {customer.Fname} {customer.Lname}!")
     tran= Transaction(customer, bank)
-    account_type = input("Deposit to [checking/savings]: ").lower()
-    amount = input("Enter an Amount: ")
-    tran.deposit(account_type, amount)
+    
+    action = input("Choose Action: 1- Deposite  2- Withdraw: ").strip()
+    account_type = input("Choose Account [checking/savings]: ").lower().strip()
+    amount = float(input("Enter an Amount: "))
+    
+    if action == "1":
+        tran.deposit(account_type, amount)
+    elif action == "2":
+        tran.withdraw(account_type, amount)
+    else:
+        print(f"Invaild Action.")
+    
+    print(f"Update balances: checking: {customer.check}, savings: {customer.save}")
 else:
-    print(f"Invaild ID or Password.")
-    
-
-    
-    
-
-bank.add_customer()
-bank.display_customers()
+        print("Invalid ID or Password")
+        
+add_new = input("Do you want to add new Customer? (y/n): ").lower()
+if add_new == "y":
+    bank.add_customer()
+    bank.display_customers()
 
