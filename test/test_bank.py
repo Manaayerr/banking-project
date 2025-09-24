@@ -28,8 +28,11 @@ class TestBank(unittest.TestCase):
         self.assertIn("10006", self.bank.customers)
         self.assertEqual(self.bank.customers["10006"].Fname,"Rawan")
         self.assertEqual(self.bank.customers["10006"].Lname, "Magrabi")
-        
-        
+    
+    def test_login_done(self):
+        customer = self.bank.login("10003", "uYWE732g4ga1")
+        self.assertIsNotNone(customer)
+        self.assertEqual(customer.Fname, "melvin")
         
 if __name__ == "__main__":
     unittest.main()
