@@ -118,3 +118,17 @@ class Transaction:
         
         self.bank.update_csv(self.customer)
         
+    def withdraw(self,account_type, amount):
+        amount = float(amount)
+        if account_type == "checking":
+            self.customer.check -= amount
+            print(f"new checking balance: {self.customer.check}")
+        elif account_type == "savings":
+            self.customer.save -= amount
+            print(f"new savings balance: {self.customer.save}")
+        else:
+            print("Invaild account type")
+            return
+        
+        self.bank.update_csv(self.customer)
+        
