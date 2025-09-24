@@ -1,6 +1,7 @@
 import csv 
 from banking.customer import Customer
 from banking.bank import Bank
+from banking.bank import Transaction
 
 csv_file = "banking/bank.csv"
 
@@ -32,8 +33,16 @@ customer= bank.login(account_id, password)
 
 if customer:
     print(f"Welcome, {customer.Fname} {customer.Lname}!")
+    tran= Transaction(customer, bank)
+    account_type = input("Deposit to [checking/savings]: ").lower()
+    amount = input("Enter an Amount: ")
+    tran.deposit(account_type, amount)
 else:
     print(f"Invaild ID or Password.")
+    
+
+    
+    
 
 bank.add_customer()
 bank.display_customers()

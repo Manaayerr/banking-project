@@ -84,8 +84,8 @@ class Bank:
     def update_csv(self,customer):
         try:
             with open(self.csv_file, "w" , newline='') as file:
-                filenames= ['account_id', 'frst_name', 'last_name', 'balance_checking', 'balance_savings' ]
-                writer = csv.DictWriter(file, filenames=filenames)
+                fieldnames = ['account_id','frst_name','last_name','password','balance_checking','balance_savings']
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
                 writer.writeheader()
                 for c in self.customers.values():
                     writer.writerow({
@@ -98,4 +98,23 @@ class Bank:
                     })
         except Exception as err:
             print(f"Error updating csv: {err}")
+            
+class Transaction:
+    def __init__(self,customer, bank):
+        self.customer = customer
+        self.bank = bank
+        
+    def deposit(self,account_type,amount):
+        amount = float(amount)
+        if account_type == 'checking':
+            self.customer.check += amount
+            print(f"new checking blance: {self.customer.check}")
+        elif account_type == "savings":
+            self.customer.save += amount
+            print(f"new savings balance: {self.customer.save}")
+        else:
+            print("Invaild account type")
+            return
+        
+        self.bank.update_csv(self.customer)
         
