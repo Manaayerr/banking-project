@@ -19,9 +19,21 @@ try:
         print(customer)
 except FileNotFoundError:
     print('File not found!')
+
     
 bank = Bank()
 bank.display_customers()
 
-bank.add_customer()
+# bank.add_customer()
 bank.display_customers()
+
+print("Login\n")
+account_id = input("Enter Account ID: ")
+password = input("Enter Password: ")
+
+customer= bank.login(account_id, password)
+
+if customer:
+    print(f"Welcome, {customer.Fname} {customer.Lname}!")
+else:
+    print(f"Invaild ID or Password.")
