@@ -22,10 +22,7 @@ except FileNotFoundError:
 
     
 bank = Bank()
-bank.display_customers()
-
-# bank.add_customer()
-bank.display_customers()
+bank.display_customers() 
 
 print("Login\n")
 account_id = input("Enter Account ID: ")
@@ -37,3 +34,7 @@ if customer:
     print(f"Welcome, {customer.Fname} {customer.Lname}!")
 else:
     print(f"Invaild ID or Password.")
+
+bank.add_customer()
+bank.display_customers()
+
