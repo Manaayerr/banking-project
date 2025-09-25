@@ -99,6 +99,14 @@ class Bank:
         except Exception as err:
             print(f"Error updating csv: {err}")
             
+    def reactivate_account(self,customer,payment):
+        if not customer.is_active:
+            customer.check += float(payment)
+            customer.overdraft_count = 0
+            customer.is_active = True
+            print(f"Account {customer.account_id} reactivated")
+            self.update_csv(customer)
+            
 class Transaction:
     def __init__(self,customer, bank):
         self.customer = customer
@@ -125,19 +133,46 @@ class Transaction:
             return
         
         amount = float(amount)
+        
+        if account_type == "checking":
+            balance = self.customer.check
+        elif account_type == "savings":
+            balance=self.customer.save 
+        else:
+            print("Invaild account type")
+            return
+        if balance - amount < -100:
+            print("cannot withdraw, would exceed allowed overdraft of -$100")
+            self.customer.is_active = False
+            self.customer.overdraft_count += 1
+            self.bank.update_csv(self.customer)
+            return
+        
+        if balance <0 and amount > 100:
+            print("Can not withdraw more than $100 when account is negative")
+            return
+        
+        new_balance = balance - amount
+        
+        if new_balance < 0:
+            self.customer.overdraft_count += 1
+            print("Overdraft! $35 fee applied")
+            new_balance -=35
+
+        if self.customer.overdraft_count>=2:
+            self.customer.is_active =False
+            print("Account deactivated due to repeated overdrafts.")
+            
+        if account_type == "checking":
+            self.customer.check = new_balance
+            print(f"new checking balance: {self.customer.check}")
+            
+        else:
+            self.customer.save = new_balance
+            print(f"new savings balance: {self.customer.save}")
                 
         
         self.bank.update_csv(self.customer)
-        
-        
-    def reactivate_account(self,customer,pay):
-        if not customer.is_active:
-            customer.check += float(pay)
-            customer.save += float(pay)
-            customer.overdraft_count = 0
-            customer.is_active = True
-            print(f"Account {customer.account_id} reactivated")
-            self.update_csv(customer)
         
     def transfer(self, from_account, to_account, amount, target_customer=None):
         amount = float(amount)

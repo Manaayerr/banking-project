@@ -16,20 +16,25 @@ if customer:
     print(f"Welcome, {customer.Fname} {customer.Lname}!")
     tran= Transaction(customer, bank)
     
-    action = input("Choose Action: 1- Deposite  2- Withdraw 3- Transfer: ").strip()
-    account_type = input("Choose Account [checking/savings]: ").lower().strip()
-    amount = float(input("Enter an Amount: "))
+    print("Choose Action:\n 1-Deposit\n 2- Withrraw\n 3- Transfer")
+    action = input("Enter choose: ").strip()
     
     if action == "1":
+        account_type = input("Choose Account [checking/savings]: ").lower().strip()
+        amount = float(input("Enter an Amount: "))
         tran.deposit(account_type, amount)
         
     elif action == "2":
+        account_type = input("Choose Account [checking/savings]: ").lower().strip()
+        amount = float(input("Enter an Amount: "))
         tran.withdraw(account_type, amount)
         if not customer.is_active:
-            re =float(input("Account is deactivated. Enter pay to reactivate: "))
+            print("Account deactivated due to overdrafts")
+            re =float(input(" Enter amount to reactivate: "))
             bank.reactivate_account(customer,re)
             
     elif action == "3":
+        account_type = input("Choose Account [checking/savings]: ").lower().strip()
         target_id = input("enter target account ID for transfer: ").strip()
         target_account_type = input("target account [checking/savings]: ").lower().strip()
         amount = float(input("Enter amount to transfer: "))
