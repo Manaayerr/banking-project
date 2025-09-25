@@ -164,7 +164,7 @@ class Transaction:
                 target_customer.save += amount
             else:
                 print("Invaild target account")
-        self.bank.upadate_csv(self.customer)
+        self.bank.update_csv(self.customer)
         if target_customer:
             self.bank.update_csv(target_customer)
         print(f"Transfer successful! New Banlances: checking:{self.customer.check}, savings: {self.customer.save}")
