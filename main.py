@@ -16,7 +16,7 @@ if customer:
     print(f"Welcome, {customer.Fname} {customer.Lname}!")
     tran= Transaction(customer, bank)
     
-    action = input("Choose Action: 1- Deposite  2- Withdraw: ").strip()
+    action = input("Choose Action: 1- Deposite  2- Withdraw 3- Transfer: ").strip()
     account_type = input("Choose Account [checking/savings]: ").lower().strip()
     amount = float(input("Enter an Amount: "))
     
@@ -24,6 +24,12 @@ if customer:
         tran.deposit(account_type, amount)
     elif action == "2":
         tran.withdraw(account_type, amount)
+    elif action == "3":
+        target_id = input("enter target account ID for transfer: ").strip()
+        target_account_type = input("target account [checking/savings]: ").lower().strip()
+        amount = float(input("Enter amount to transfer: "))
+        target_customer = bank.customers.get(target_id)
+        tran.transfer(account_type,target_account_type,amount,target_customer)
     else:
         print(f"Invaild Action.")
     
