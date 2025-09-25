@@ -168,6 +168,16 @@ class Transaction:
         
         self.bank.update_csv(self.customer)
         
+        
+    def reactivate_account(self,customer,pay):
+        if not customer.is_active:
+            customer.check += float(pay)
+            customer.save += float(pay)
+            customer.overdraft_count = 0
+            customer.is_active = True
+            print(f"Account {customer.account_id} reactivated")
+            self.update_csv(customer)
+        
     def transfer(self, from_account, to_account, amount, target_customer=None):
         amount = float(amount)
         
