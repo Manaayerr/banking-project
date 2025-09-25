@@ -6,6 +6,8 @@ class Customer:
         self.password = password
         self.check = float(check)
         self.save = float(save)
+        self.overdraft_count = 0
+        self.is_active = True
         
     def __str__(self):
         return f"{self.account_id}: {self.Fname} {self.Lname} - check: {self.check} save: {self.save} "
