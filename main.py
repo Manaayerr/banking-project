@@ -22,8 +22,13 @@ if customer:
     
     if action == "1":
         tran.deposit(account_type, amount)
+        
     elif action == "2":
         tran.withdraw(account_type, amount)
+        if not customer.is_active:
+            re =float(input("Account is deactivated. Enter pay to reactivate: "))
+            bank.reactivate_account(customer,re)
+            
     elif action == "3":
         target_id = input("enter target account ID for transfer: ").strip()
         target_account_type = input("target account [checking/savings]: ").lower().strip()

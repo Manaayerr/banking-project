@@ -125,45 +125,6 @@ class Transaction:
             return
         
         amount = float(amount)
-        
-        if account_type == "checking":
-            balance = self.customer.check
-            # print(f"new checking balance: {self.customer.check}")
-            
-        elif account_type == "savings":
-            balance = self.customer.save
-            # print(f"new savings balance: {self.customer.save}")
-            
-        else:
-            print("Invaild account type")
-            return
-        
-        if balance <0 and amount > 100:
-            print(" can not withdraw more than $100 when account is negative")
-            return
-        
-        if balance - amount < -100:
-            print("cannot withdraw, would exceed allowed overdraft og -$100")
-            return
-        
-        if account_type == "checking":
-            self.customer.check -= amount
-            new_balance = self.customer.check
-        else:
-            self.customer.save -= amount
-            new_balance = self.customer.save
-            
-        if new_balance < 0:
-            self.customer.overdraft_count +=1
-            print("overdraft! $35 fee applied.")
-            if account_type == "checking":
-                self.customer.check -=35
-            else:
-                self.customer.save -=35
-                
-            if self.customer.overdraft_count >=2:
-                self.customer.is_active = False
-                print("account deactivated due to repeated overdrafts")
                 
         
         self.bank.update_csv(self.customer)
