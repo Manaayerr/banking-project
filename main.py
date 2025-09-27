@@ -16,7 +16,7 @@ if customer:
     print(f"Welcome, {customer.Fname} {customer.Lname}!")
     tran= Transaction(customer, bank)
     
-    print("Choose Action:\n 1-Deposit\n 2- Withrraw\n 3- Transfer")
+    print("Choose Action:\n 1-Deposit\n 2- Withdraw\n 3- Transfer")
     action = input("Enter choose: ").strip()
     
     if action == "1":
